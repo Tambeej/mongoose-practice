@@ -196,10 +196,10 @@ Person.find({ height: { $gt: 180 }, salary: { $gt: 30000 } }).then(function (
 Person.find({
   $or: [{ height: { $gt: 180 } }, { salary: { $gt: 30000 } }],
 }).then(function (people) {
-  console.log("people who are tall (>180) AND rich (>30000):", people);
+  console.log("people who are tall (>180) OR rich (>30000):", people);
 });
 //3. Find all the people who have grey hair or eyes, and are skinny (<70)
-Person.find
+Person.find()
   .and([{ $or: [{ hair: "grey" }, { eyes: "grey" }] }, { weight: { $lt: 70 } }])
   .then(function (people) {
     console.log(
@@ -208,5 +208,25 @@ Person.find
     );
   });
 //4. Find people who have at least 1 kid with grey hair
-
+Person.find({ kids: { $elemMatch: { hair: "grey" } } })
+  .exec()
+  .then(function (err, people) {
+    for (p in people) {
+      var person = people[p];
+      console.log(p, " kids:\n", person.kids);
+    }
+  });
 //5. Find all the people who have at least one overweight kid, and are overweight themselves (>100)
+Person.find()
+  .and([
+    { weight: { $gt: 100 } },
+    { kids: { $elemMatch: { weight: { $gt: 100 } } } },
+  ])
+  .exec()
+  .then(function (err, people) {
+    for (p in people) {
+      F;
+      var person = people[p];
+      console.log(p, " kids:\n", person.kids);
+    }
+  });
