@@ -187,13 +187,17 @@ Book.find({ genres: "Fiction" })
 /*People
 ----------------------*/
 //1. Find all the people who are tall (>180) AND rich (>30000)
-Person.find({height: {  $gt: 180 }, salary:{$gt:30000} }).then(function(people){
-  console.log("people who are tall (>180) AND rich (>30000):",people)
-})
+Person.find({ height: { $gt: 180 }, salary: { $gt: 30000 } }).then(function (
+  people
+) {
+  console.log("people who are tall (>180) AND rich (>30000):", people);
+});
 //2. Find all the people who are tall (>180) OR rich (>30000)
-Person.find({height: {  $gt: 180 }, salary:{$gt:30000} }).then(function(people){
-  console.log("people who are tall (>180) AND rich (>30000):",people)
-})
+Person.find({
+  $or: [{ height: { $gt: 180 } }, { salary: { $gt: 30000 } }],
+}).then(function (people) {
+  console.log("people who are tall (>180) AND rich (>30000):", people);
+});
 //3. Find all the people who have grey hair or eyes, and are skinny (<70)
 
 //4. Find people who have at least 1 kid with grey hair
