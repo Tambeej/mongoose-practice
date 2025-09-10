@@ -199,7 +199,14 @@ Person.find({
   console.log("people who are tall (>180) AND rich (>30000):", people);
 });
 //3. Find all the people who have grey hair or eyes, and are skinny (<70)
-
+Person.find
+  .and([{ $or: [{ hair: "grey" }, { eyes: "grey" }] }, { weight: { $lt: 70 } }])
+  .then(function (people) {
+    console.log(
+      "people who have grey hair or eyes, and are skinny (<70):",
+      people
+    );
+  });
 //4. Find people who have at least 1 kid with grey hair
 
 //5. Find all the people who have at least one overweight kid, and are overweight themselves (>100)
